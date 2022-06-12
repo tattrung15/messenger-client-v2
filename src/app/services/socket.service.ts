@@ -1,15 +1,15 @@
 import { io, Socket } from "socket.io-client";
 
-const socketUrl = process.env.REACT_APP_SOCKET_URL as string;
-const options = {
-  auth: { token: "" },
-  transports: ["websocket"],
-};
-
 class _SocketService {
-  socket: Socket = io(socketUrl, options);
+  private socket: Socket | null = null;
 
-  constructor() {
+  public connect() {
+    const socketUrl = process.env.REACT_APP_SOCKET_URL as string;
+    const options = {
+      auth: { token: "" },
+      transports: ["websocket"],
+    };
+
     if (!this.socket) {
       this.socket = io(socketUrl, options);
     }
